@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Substrata101</title>
+  <link rel="stylesheet" href="styles/styles.css">
+
+</head>
+<body>
+  <header>
+    <h1>Substrata101</h1>
+    <p>Interactive music visualization.</p>
+    <p>A shipwrecked sailor, buried on this coast,<br>
+           Bids you set sail.<br>
+           Full many a gallant bark, where we were lost,<br>
+           Weathered the gale.</p>
+  </header>
+
+  <main>
+    <canvas id="visualizer"></canvas>
+    
+    <!-- Progress bar -->
+    <div class="progress-container">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+    <div class="time-display" id="timeDisplay">0:00 / 0:00</div>
+
+    <div class="control-container">
+      <label for="audioFile" class="custom-file-upload">
+        <span id="fileLabel">Choose Audio File</span>
+      </label>
+      <input type="file" id="audioFile" accept="audio/*">
+
+      <div class="button-container">
+        <button id="startBtn">Start</button>
+        <button id="stopBtn">Stop</button>
+        <button id="downloadBtn">Download Output</button>
+      </div>
+
+      <div class="bottom-row">
+        <div class="style-container">
+          <p>Select Animation Style:</p>
+          <div class="style-buttons">
+            <button class="styleBtn" data-style="florr">Florr</button>
+            <button class="styleBtn" data-style="aurora">Aurora</button>
+            <button class="styleBtn" data-style="storm">Storm</button>
+            <button class="styleBtn" data-style="star">StarryNight</button>
+            <button class="styleBtn" data-style="mask">Mask</button>
+            <button class="styleBtn" data-style="galaxy">Galaxy</button>
+            <button class="styleBtn" data-style="quantum">Quantum</button>
+            <button class="styleBtn" data-style="aqua">Aqua</button>
+            <button class="styleBtn" data-style="manim">Manim</button>
+            <button class="styleBtn" data-style="bounce">Bounce+Neon Pulse</button>
+            <button class="styleBtn" data-style="waves">Waves</button>
+            <button class="styleBtn" data-style="metro">Metropolis</button>
+            <button class="styleBtn" data-style="fire">Firework</button>
+            <button class="styleBtn" data-style="rain">Rain</button>
+          </div>
+        </div>
+        
+        <div class="ai-container">
+          <p>AI Assistant (adjust visualization style):</p>
+          <textarea id="aiInput" rows="2" placeholder="Describe how you want the visuals to change..."></textarea>
+          <button id="aiSubmit">Apply</button>
+          <div id="aiResponse"></div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer>
+    <p>© 2025 Tianer Tang</p>
+  </footer>
+  <script src="scripts/app.js"></script>
+</body>
+</html>
+
