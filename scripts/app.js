@@ -190,12 +190,51 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // 2. Aurora style (WebGL)
-  function renderAurora() {
-    // This will be handled by the WebGL system
-    if (!auroraGL && getBands) {
-      auroraGL = initAuroraGL(canvas, getBands, {});
-    }
+  // In your app.js, replace the renderAurora function with this:
+function renderAurora() {
+  // Create a WebGL canvas if it doesn't exist
+  let glCanvas = document.getElementById("webgl-canvas");
+  if (!glCanvas) {
+    glCanvas = document.createElement("canvas");
+    glCanvas.id = "webgl-canvas";
+    glCanvas.style.position = "absolute";
+    glCanvas.style.top = canvas.offsetTop + "px";
+    glCanvas.style.left = canvas.offsetLeft + "px";
+    glCanvas.style.zIndex = "1";
+    glCanvas.width = canvas.width;
+    glCanvas.height = canvas.height;
+    document.querySelector("main").appendChild(glCanvas);
   }
+  
+  // Position and size the WebGL canvas to match the 2D canvas
+  const rect = canvas.getBoundingClientRect();
+  glCanvas.style.width = canvas.style.width;
+  glCanvas.style.height = canvas.style.height;
+  glCanvas.width = canvas.width;
+  glCanvas.height = canvas.height;
+  
+  // Initialize WebGL for Aurora if needed
+  if (!auroraGL && getBands) {
+    auroraGL = initAuroraGL(glCanvas, getBands, {});
+  }
+  
+  // Render the Aurora
+  if (auroraGL) {
+    auroraGL();
+  }
+  
+  // Hide the WebGL canvas when switching to other styles
+  document.querySelectorAll(".styleBtn").forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      const style = e.target.getAttribute("data-style");
+      if (style !== "aurora" && glCanvas) {
+        glCanvas.style.display = "none";
+      } else if (glCanvas) {
+        glCanvas.style.display = "block";
+      }
+    });
+  });
+}
 
   // 3. Storm style
   function renderStorm() {
@@ -1176,6 +1215,16 @@ document.querySelectorAll(".styleBtn").forEach(btn => {
       particles = [];
     }
     
+     // Handle WebGL canvas visibility
+    const glCanvas = document.getElementById("webgl-canvas");
+    if (glCanvas) {
+      if (style === "aurora") {
+        glCanvas.style.display = "block";
+      } else {
+        glCanvas.style.display = "none";
+      }
+    }
+    
     // Reinitialize WebGL for Aurora if needed
     if (style === "aurora") {
       auroraGL = null;
@@ -1183,9 +1232,10 @@ document.querySelectorAll(".styleBtn").forEach(btn => {
   });
 });
 
-// ----- Progress bar dragging functionality -----
+// In your app.js, replace the setupProgressBarDragging function with this:
+// In your app.js, replace the setupProgressBarDragging function with this:
 function setupProgressBarDragging() {
-  const progressContainer = document.getElementById("progressContainer");
+  const progressContainer = document.querySelector(".progress-container");
   const progressBar = document.getElementById("progressBar");
   const progressHandle = document.getElementById("progressHandle");
   
@@ -1254,8 +1304,11 @@ function setupProgressBarDragging() {
     }
   });
 }
+setupProgressBarDragging();
+// Then, call the function once at the end of your DOMContentLoaded event listener
+// Remove the recursive call inside setupProgressBarDragging()
 
-// Update the updateProgress function to also update the handle position
+// Also update the updateProgress function to handle the progress handle:
 function updateProgress() {
   if (!audio || isNaN(audio.duration)) return;
   
@@ -1270,7 +1323,7 @@ function updateProgress() {
   
   timeDisplay.textContent = `${formatTime(audio.currentTime)} / ${formatTime(audio.duration)}`;
 }
-setupProgressBarDragging();
+
 // Set default style button as selected on page load
 document.addEventListener("DOMContentLoaded", () => {
   const defaultStyleBtn = document.querySelector('.styleBtn[data-style="florr"]');
@@ -1318,5 +1371,12 @@ window.addEventListener("resize", () => {
   dprSizeCanvas();
 });
 
-
+  const defaultStyleBtn = document.querySelector('.styleBtn[data-style="florr"]');
+  if (defaultStyleBtn) {
+    defaultStyleBtn.classList.add("selected");
+  }
+  
+  // Initialize canvas size
+  dprSizeCanvas();
+  clearCanvas();
 });
