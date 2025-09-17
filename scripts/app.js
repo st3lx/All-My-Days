@@ -1380,3 +1380,7 @@ window.addEventListener("resize", () => {
   dprSizeCanvas();
   clearCanvas();
 });
+
+
+
+
