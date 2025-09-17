@@ -187,14 +187,15 @@ button:hover {
 }
 
 /* Progress bar styles */
+/* In your styles.css, update the progress bar styles: */
 .progress-container {
   width: 90%;
   max-width: 800px;
-  height: 20px;
+  height: 8px;
   background: #ddd;
-  border-radius: 10px;
+  border-radius: 4px;
   margin: 1rem auto;
-  overflow: hidden;
+  overflow: visible;
   position: relative;
   cursor: pointer;
 }
@@ -203,22 +204,22 @@ button:hover {
   height: 100%;
   width: 0%;
   background: linear-gradient(90deg, #4b6cb7, #182848);
-  border-radius: 10px;
-  transition: width 0.2s ease;
+  border-radius: 4px;
+  transition: width 0.1s ease;
 }
 
 .progress-handle {
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 50%;
+  left: 0%;
   width: 16px;
-  height: 8px;
+  height: 16px;
   background: #fff;
   border-radius: 50%;
   border: 2px solid #4b6cb7;
-  margin-top: 2px;
-  margin-left: -8px;
+  transform: translate(-50%, -50%);
   cursor: pointer;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
   z-index: 10;
+  display: block;
 }
